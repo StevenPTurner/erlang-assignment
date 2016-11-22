@@ -3,6 +3,7 @@
 -export([count_unique/1]).
 -export([unique/1]).
 -export([count/1]).
+-export([load/1]).
 
 pi() -> pi(0,1,1,false). %inital clause
 pi(PI,_,_,true) -> PI;  %exit clause
@@ -22,5 +23,14 @@ unique([H|T]) ->
 
 count_unique(List) ->
   Unique = unique(List),
-  io:fwrite("~w~n " , [Unique]),
+  io:fwrite("~p~n" , [Unique]),
+  io:fwrite("Unique items in list: ", []),
   count(Unique).
+
+load(F)->
+  {ok, Binary} = file:read_file(F),
+  String = binary_to_list(Binary),
+  Lowercase = string:to_lower(String),
+  Formatted = re:replace(Lowercase, "[\\\n\\\r.,;:'-\\[\\]!?]*", "",[global, {return, list}]),
+  List = re:split(Formatted,"\s",[{return,list}]),
+  count_unique(List).
