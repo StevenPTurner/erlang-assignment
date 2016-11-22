@@ -1,12 +1,10 @@
-%4 * (1 - 1/3 + 1/5 - 1/7 ...)
 -module(calculate_pi).
 -export([pi/0]).
 
-pi() -> 4 * pi(0,0,1,1).
+pi() -> pi(0,1,1,false). %inital clause
 
-pi(250,PI,_,_) -> PI;
-
-pi(N,PI,Add,Index) ->
-  Whatever = (1/Index)*Add,
-  io:fwrite("~3.3.0w " ,[Index]),
-  pi(N+1,PI + Whatever,Add*-1,Index+2).
+pi(PI,_,_,true) -> PI;  %exit clause
+pi(PI,Operation,Index,_) ->
+  To_add = (4/Index) * Operation,
+  Is_finished = (4/Index) < 0.00001,  %checks if at 5 decimal places
+  pi(PI + To_add, Operation*-1, Index+2, Is_finished).
