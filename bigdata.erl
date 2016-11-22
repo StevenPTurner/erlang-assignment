@@ -1,4 +1,4 @@
--module(calculate_pi).
+-module(bigdata).
 -export([pi/0]).
 
 pi() -> pi(0,1,1,false). %inital clause
