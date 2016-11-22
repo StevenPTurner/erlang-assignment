@@ -21,4 +21,6 @@ unique([H|T]) ->
   [H] ++ unique([X || X <- T, X /= H]).
 
 count_unique(List) ->
-  count(unique(List)).
+  Unique = unique(List),
+  io:fwrite("~w~n " , [Unique]),
+  count(Unique).
