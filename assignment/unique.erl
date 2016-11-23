@@ -2,7 +2,7 @@
 -export([count_unique/1]).
 -export([unique/1]).
 -export([count/1]).
--export([load/1]).
+-export([count_unique_file/1]).
 
 %retuns how many items are in a list
 count(List) -> count(List,0).
@@ -22,7 +22,6 @@ count_unique(List) ->
   io:fwrite("Unique items in list: ", []),
   count(Unique).
 
-%
 count_unique_file(File)->
   {ok, Binary} = file:read_file(File),
   String = binary_to_list(Binary),
