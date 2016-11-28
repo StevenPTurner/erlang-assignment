@@ -12,8 +12,7 @@ count([_|T],Length) ->
 
 %returns a list of unique items in input list
 unique([]) -> [];
-unique([H|T]) ->
-  [H] ++ unique([X || X <- T, X /= H]).
+unique([H|T]) -> [H] ++ unique([X || X <- T, X /= H]).
 
 %retuns count of the unique items in a list
 count_unique(List) ->
@@ -27,6 +26,5 @@ count_unique_file(File)->
   String = binary_to_list(Binary),
   Lowercase = string:to_lower(String), %coverts to lowercase
   %uses regex to remove unneeded punctuation
-  Formatted = re:replace(Lowercase, "[\\\n\\\r.,;:'-\\[\\]!?]*", "",[global, {return, list}]),
-  List = re:split(Formatted,"\s",[{return,list}]), % splts each word into a list
+  List = re:split(Lowercase, "[,\s\n\r!.-?--\\[\\]']", [{return, list}]), % splts each word into a list
   count_unique(List).
